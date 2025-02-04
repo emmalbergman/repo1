@@ -2,6 +2,8 @@
 Project for ESOF 423- an inventory management system (IMS) for the HRDC.
 
 # Development
+
+## Contribution
 To contribute to the project:
 
 1. make a branch on github
