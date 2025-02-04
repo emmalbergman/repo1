@@ -1,7 +1,9 @@
 # group1
 Project for ESOF 423- an inventory management system (IMS) for the HRDC.
 
-# Development
+# User Documentation
+
+# Developer Documentation
 
 ## Contribution
 To contribute to the project:
