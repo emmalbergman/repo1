@@ -23,9 +23,11 @@ def _db_close(exc):
 
 @app.get("/")
 def home():
-    test_list = ['a','b','c']
-    return render_template("index.html", test_list = test_list)
+    products = Product.all()
+    return render_template("index.html", product_list = products)
 
 if __name__ == '__main__':
     #TODO: disable debug mode when we are done developing
+    Product.add_product("shampoo", 5, 5.00,"bottles", 10, "")
+    #Product.delete_product("shampoo")
     app.run(port=5000, debug=True)

@@ -6,8 +6,13 @@
     <title>HRDC Inventory Management System</title>
 </head>
 <body>
-    <h1>Hello World!</h1>
-    {% for item in test_list %}
-        <p>{{ item }}</p>
+    <h1>Inventory Management System</h1>
+    {% for product in product_list %}
+        <h3>{{ product.product_name }} </h3>
+        <p>Inventory: {{ product.inventory }}</p> 
+        <p>Price: {{ product.price }}</p>
+        <p>Unit type: {{ product.unit_type }}</p>
+        <p>Ideal stock: {{ product.ideal_stock }}</p>
+        <p>Last updated: {{ product.last_updated }}</p>
     {% endfor %}
 </html>
