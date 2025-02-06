@@ -21,13 +21,29 @@ def _db_close(exc):
     if not db.is_closed():
         db.close()
 
-@app.get("/")
+#NOTE: my IDE made me do it this way , can change to app.get if broken
+@app.route("/", methods=["GET"])
 def home():
     products = Product.all()
     return render_template("index.html", product_list = products)
 
+#Simple add, just adds stuff + 1 works with htmx
+#TODO: make this a form
+@app.route("/add", methods=["POST"])
+def add():
+    products = Product.all()
+    count = len(products)
+    stuff = "stuff" + str(count)
+    Product.add_product(stuff, 5, 5.00, "piles", 0, "")
+
+    return redirect("/")
+
+
+
+
 if __name__ == '__main__':
     #TODO: disable debug mode when we are done developing
     Product.add_product("shampoo", 5, 5.00,"bottles", 10, "")
+    Product.add_product("stuff", 5, 5.00, "piles", 0, "")
     #Product.delete_product("shampoo")
     app.run(port=5000, debug=True)
