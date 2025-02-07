@@ -3,6 +3,7 @@ Project for ESOF 423- an inventory management system (IMS) for the HRDC.
 
 # User Documentation
 
+View our [project website](https://423s25.github.io/project1/) for full user documentation.
 # Developer Documentation
 
 ## Contribution
@@ -15,4 +16,22 @@ To contribute to the project:
 5. push your changes (make sure you are on your branch, not main)
 6. on github, make a pull request to merge your changes into the main branch (resolve any merge conflicts)
 7. tag someone for a review (probably not necessary for smaller changes)
-8. once someone approves, merge it 
+8. once someone approves, merge it
+
+Full developer documentation can be found [here](https://423s25.github.io/project1/).
+
+# Maintainers
+
+[Cody Hager](https://github.com/CodyHager)
+
+[Alan Zetzer](https://github.com/AJ-Zetzer)
+
+[Theodore Bagley](https://github.com/TheodoreBagley)
+
+[Matthew Parker](https://github.com/doddsip)
+
+[Quinlin Gregg](https://github.com/TheQantas)
+
+[Luke Breum](https://github.com/Lukebreum)
+
+[Emma Bergman](https://github.com/emmalbergman)
