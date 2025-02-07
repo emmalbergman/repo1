@@ -1,5 +1,6 @@
 from peewee import *
 import datetime
+from typing import Optional
 
 
 
@@ -15,12 +16,12 @@ class Product(Model):
     image_path = CharField(null=True)
     last_updated = DateTimeField(default=datetime.datetime.now)
 
-    @classmethod
-    def all(cls):
+    @staticmethod
+    def all() -> list['Product']:
         return list(Product.select())
 
-    @classmethod
-    def add_product(cls, name, stock, price, unit_type, ideal_stock, image_path=None):
+    @staticmethod
+    def add_product(name: str, stock: int, price: float, unit_type: str, ideal_stock: int, image_path: str = None) -> 'Product':
         product, created = Product.get_or_create(
             product_name=name,
             defaults={
@@ -34,38 +35,38 @@ class Product(Model):
         return product
     
     # Deletes the chosen product
-    @classmethod
-    def delete_product(cls, name):
+    @staticmethod
+    def delete_product(name: str):
         product = Product.get_product(name)
         product.delete_instance()
 
     # Returns the information of the chosen product
-    @classmethod
-    def get_product(cls, name):
+    @staticmethod
+    def get_product(name: str) -> Optional['Product']:
         product = Product.get(Product.product_name == name)
         return product
     
     #TODO other update methods
 
     # Updates price
-    @classmethod
-    def update_price(cls, name, increase):
+    @staticmethod
+    def update_price(name: str, increase: float):
         product = Product.get_product(name)
         product.price += increase
         product.save()
 
     # Update ideal stock
-    @classmethod
-    def update_ideal_stock(cls, name, increase):
+    @staticmethod
+    def update_ideal_stock(name: str, increase: int):
         product = Product.get_product(name)
         product.ideal_stock += increase
         product.save()
 
     # Updates the current available stock of a product
-    @classmethod
-    def update_stock(cls, name, new_stock):
+    @staticmethod
+    def update_stock(name: str, increase: int):
         product = Product.get_product(name)
-        product.inventory += new_stock
+        product.inventory += increase
         product.save()
 
         
