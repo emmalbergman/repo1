@@ -22,7 +22,7 @@ Full developer documentation can be found [here](https://423s25.github.io/projec
 
 # Maintainers
 
-[Cody Hager](https://github.com/CodyHager)
+[Cody Hager, github: CodyHager](https://github.com/CodyHager)
 
 [Alan Zetzer](https://github.com/AJ-Zetzer)
 
