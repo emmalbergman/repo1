@@ -1,5 +1,5 @@
-# group1
-Project for ESOF 423- an inventory management system (IMS) for the HRDC.
+# HRDC Inventory Management System
+Group 1's for ESOF 423- an inventory management system (IMS) for the HRDC.
 
 # User Documentation
 
