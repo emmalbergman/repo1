@@ -28,7 +28,7 @@ Full developer documentation can be found [here](https://423s25.github.io/projec
 
 [Theodore Bagley](https://github.com/TheodoreBagley)
 
-[Matthew Parker, github: doddsip](https://github.com/doddsip)
+[Matthew Parker](https://github.com/doddsip)
 
 [Quinlin Gregg](https://github.com/TheQantas)
 
