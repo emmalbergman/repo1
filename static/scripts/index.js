@@ -18,3 +18,11 @@ function toStaticCell(dom) {
         elem.style.display = 'none';
     }
 }
+
+// Submits a form when enter is pressed in an <input> field
+function onInputEnter(dom, ev) {
+    const formParent = dom.closest('form');
+    if (formParent != null && ev.code == 'Enter') {
+        formParent.requestSubmit();
+    }
+}

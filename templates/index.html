@@ -30,7 +30,7 @@
             <img src="icons/pencil.svg" alt="Edit Icon" />
         </button>
         <form class="edit" style="display: none;" hx-patch="update/{{ endpoint }}/{{ id }}" hx-target="body">
-            <input name="{{ param }}" value="{{ value }}"/>
+            <input onkeypress="onInputEnter(this, event)" name="{{ param }}" value="{{ value }}"/>
             <button onclick="event.preventDefault(); toStaticCell(this);" class="in-cell-action" title="Cancel Changes">
                 <img src="icons/close.svg" alt="Close Icon" />
             </button>
