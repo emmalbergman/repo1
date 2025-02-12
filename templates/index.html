@@ -1,39 +1,46 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <!-- HTMX CDN -->
-    <script src="https://unpkg.com/htmx.org@2.0.4" integrity="sha384-HGfztofotfshcF7+8n44JQL2oJmowVChPTg48S+jvZoztPfvwD79OC/LTtG6dMp+" crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/htmx.org@2.0.4"
+        integrity="sha384-HGfztofotfshcF7+8n44JQL2oJmowVChPTg48S+jvZoztPfvwD79OC/LTtG6dMp+"
+        crossorigin="anonymous"></script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>HRDC Inventory Management System</title>
+    <link rel="stylesheet" href="styles/index.css">
+    <script src="scripts/index.js"></script>
 </head>
+
 <body>
     <h1>Inventory Management System</h1>
-    <style>
-        table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 24px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-}
 
-th, td {
-    padding: $half-spacing-unit;
-    text-align: center;
-    border: 1px solid #CCCCCC;
-}
+    <!--
+        endpoint: the endpoing to hit to update (e.g., /update/<endpoint>/<id>)
+        id: the product id (e.g., /update/<endpoint>/<id>)
+        value: the current value to display
+        param: the param/input name
+        human_desc: a human-readable attribute name
+    -->
+    {% macro updatable_table_cell(endpoint, id, value, param, human_desc) %}
+    <td>
+        <span class="static">{{ value }}</span>
+        <button onclick="toEditCell(this)" class="in-cell-action static hidden" title="Edit {{ human_desc }}">
+            <img src="icons/pencil.svg" alt="Edit Icon" />
+        </button>
+        <form class="edit" style="display: none;" hx-patch="update/{{ endpoint }}/{{ id }}" hx-target="body">
+            <input onkeypress="onInputEnter(this, event)" name="{{ param }}" value="{{ value }}"/>
+            <button onclick="event.preventDefault(); toStaticCell(this);" class="in-cell-action" title="Cancel Changes">
+                <img src="icons/close.svg" alt="Close Icon" />
+            </button>
+            <button type="submit" class="in-cell-action" title="Save {{ human_desc }}">
+                <img src="icons/checkmark.svg" alt="Checkmark Icon" />
+            </button>
+        </form>
+    </td>
+    {% endmacro %}
 
-th {
-    background: black;
-    color: white;
-    text-transform: uppercase;
-    font-weight: 700;
-}
-
-tr:nth-child(even) {
-    background: #EEEEEE;
-}
-    </style>
     <table>
         <tr>
             <th>Name</th>
@@ -42,23 +49,24 @@ tr:nth-child(even) {
             <th>Unit Type</th>
             <th>Ideal Stock</th>
             <th>Last Updated</th>
+            <th>Item History</th>
         </tr>
-    {% for product in product_list %}
-    <tr>
-        <td>{{ product.product_name }} </td>
-        <td>{{ product.inventory }}</td>
-        <td>{{ product.price }}</td>
-        <td>{{ product.unit_type }}</td>
-        <td>{{ product.ideal_stock }}</td>
-        <td>{{ product.last_updated }}</td>
-    </tr>
-    {% endfor %}
+        {% for product in product_list %}
+        <tr>
+            <td>{{ product.product_name }} </td>
+            {{ updatable_table_cell('inventory', product.get_id(), product.inventory, 'stock', 'Inventory Level') }}
+            <td>{{ product.price }}</td>
+            <td>{{ product.unit_type }}</td>
+            <td>{{ product.ideal_stock }}</td>
+            <td>{{ product.last_updated }}</td>
+            <td><a href="/inventory-history?product-id={{ product.get_id() }}">View</a></td>
+        </tr>
+        {% endfor %}
     </table>
-    <button hx-post="/add"
-    hx-trigger="click"
-    hx-target="body"
-    hx-swap="outerHTML">
-    ADD STUFF
-</button>
+    <button hx-post="/add" hx-trigger="click" hx-target="body" hx-swap="outerHTML">
+        ADD STUFF
+    </button>
+
 </body>
+
 </html>

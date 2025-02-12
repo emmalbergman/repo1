@@ -1,0 +1,46 @@
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 24px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+th,
+td {
+    text-align: center;
+    border: 1px solid #CCCCCC;
+}
+
+th {
+    background: black;
+    color: white;
+    text-transform: uppercase;
+    font-weight: 700;
+}
+
+tr:nth-child(even) {
+    background: #EEEEEE;
+}
+
+.in-cell-action {
+    float: right;
+    padding: 2px;
+    background: none;
+    border: 1px solid black;
+    border-radius: 2px;
+    aspect-ratio: 1 / 1;
+    margin-left: 5px;
+}
+.in-cell-action.hidden {
+    visibility: hidden;
+}
+.in-cell-action:hover {
+    background-color: #bbb;
+    cursor: pointer;
+}
+td:hover > .in-cell-action {
+    visibility: visible;
+}
+.in-cell-action > svg, .in-cell-action > img {
+    height: 1em;
+}
