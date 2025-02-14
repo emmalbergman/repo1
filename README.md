@@ -26,7 +26,7 @@ Full developer documentation can be found [here](https://423s25.github.io/projec
 
 [Alan Zetzer](https://github.com/AJ-Zetzer)
 
-[Theodore Bagley](https://github.com/TheodoreBagley)
+[Theodore Bagley] - MyGithub - (https://github.com/TheodoreBagley)
 
 [Matthew Parker](https://github.com/doddsip)
 
