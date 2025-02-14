@@ -1,5 +1,5 @@
-# group1
-Project for ESOF 423- an inventory management system (IMS) for the HRDC.
+# HRDC Inventory Management System
+Group 1's project for ESOF 423- an inventory management system (IMS) for the HRDC.
 
 # User Documentation
 
@@ -22,7 +22,7 @@ Full developer documentation can be found [here](https://423s25.github.io/projec
 
 # Maintainers
 
-[Cody Hager](https://github.com/CodyHager)
+[Cody Hager, github: CodyHager](https://github.com/CodyHager)
 
 [Alan Zetzer](https://github.com/AJ-Zetzer)
 
