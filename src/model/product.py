@@ -16,15 +16,17 @@ class Product(Model):
     ideal_stock = IntegerField()
     image_path = CharField(null=True)
     last_updated = DateTimeField(default=datetime.datetime.now)
+    days_left = DecimalField(decimal_places=2, auto_round=True)
 
 
 
     @staticmethod
     def all() -> list['Product']:
+
         return list(Product.select())
 
     @staticmethod
-    def add_product(name: str, stock: int, price: float, unit_type: str, ideal_stock: int, image_path: str = None) -> 'Product':
+    def add_product(name: str, stock: int, price: float, unit_type: str, ideal_stock: int, days_left: float ,image_path: str = None) -> 'Product':
         product, created = Product.get_or_create(
             product_name=name,
             defaults={
@@ -32,7 +34,8 @@ class Product(Model):
                 'price': price,
                 'unit_type': unit_type,
                 'ideal_stock': ideal_stock,
-                'image_path': image_path
+                'image_path': image_path,
+                'days_left': days_left
             }
         )
         return product

@@ -49,7 +49,8 @@
             <th>Unit Type</th>
             <th>Ideal Stock</th>
             <th>Last Updated</th>
-            <th></th>
+            <th>Days Left</th>
+            <th>Usage History</th>
         </tr>
         {% for product in product_list %}
         <tr>
@@ -59,12 +60,13 @@
             <td>{{ product.unit_type }}</td>
             <td>{{ product.ideal_stock }}</td>
             <td>{{ product.last_updated }}</td>
+            <td>Hold</td>
             <td><a href="/inventory-history?product-id={{ product.get_id() }}">View History</a></td>
         </tr>
         {% endfor %}
     </table>
     <button hx-post="/add" hx-trigger="click" hx-target="body" hx-swap="outerHTML">
-        ADD STUFF
+        ADD PRODUCT
     </button>
 
 </body>
