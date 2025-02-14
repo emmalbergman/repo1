@@ -58,7 +58,9 @@
                             <td>N/A</td>
                         {% else %}
                             <td>{{ snapshot.timestamp - snapshots[loop.index0 + 1].timestamp }}</td>
-                            <td>{{ snapshot.inventory - snapshots[loop.index0 + 1].inventory }}</td>
+                            <td>
+                                {% if snapshot.inventory - snapshots[loop.index0 + 1].inventory > 0 %}+{% endif %}{{ snapshot.inventory - snapshots[loop.index0+1].inventory }}
+                            </td>
                         {% endif %}
                     </tr>
                 {% endfor %}

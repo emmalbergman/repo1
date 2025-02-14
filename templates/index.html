@@ -30,7 +30,7 @@
             <img src="icons/pencil.svg" alt="Edit Icon" />
         </button>
         <form class="edit" style="display: none;" hx-patch="update/{{ endpoint }}/{{ id }}" hx-target="body">
-            <input name="{{ param }}" value="{{ value }}"/>
+            <input onkeypress="onInputEnter(this, event)" name="{{ param }}" value="{{ value }}"/>
             <button onclick="event.preventDefault(); toStaticCell(this);" class="in-cell-action" title="Cancel Changes">
                 <img src="icons/close.svg" alt="Close Icon" />
             </button>
@@ -49,8 +49,7 @@
             <th>Unit Type</th>
             <th>Ideal Stock</th>
             <th>Last Updated</th>
-            <th>Days Left</th>
-            <th>Usage History</th>
+            <th>Item History</th>
         </tr>
         {% for product in product_list %}
         <tr>
@@ -60,13 +59,12 @@
             <td>{{ product.unit_type }}</td>
             <td>{{ product.ideal_stock }}</td>
             <td>{{ product.last_updated }}</td>
-            <td>Hold</td>
-            <td><a href="/inventory-history?product-id={{ product.get_id() }}">View History</a></td>
+            <td><a href="/inventory-history?product-id={{ product.get_id() }}">View</a></td>
         </tr>
         {% endfor %}
     </table>
     <button hx-post="/add" hx-trigger="click" hx-target="body" hx-swap="outerHTML">
-        ADD PRODUCT
+        ADD STUFF
     </button>
 
 </body>

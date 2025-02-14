@@ -23,12 +23,12 @@ def _db_close(exc):
 
 
 #NOTE: my IDE made me do it this way, can change to app.get if broken
-@app.route("/", methods=["GET"])
+@app.get("/")
 def home():
     products = Product.all()
     return render_template("index.html", product_list=products)
 
-@app.route("/inventory-history", methods=["GET"])
+@app.get("/inventory-history")
 def inventory_history():
     product_id = request.args.get('product-id', None, type=int)
     if product_id is None: # TODO: have actual error page
