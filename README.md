@@ -24,7 +24,7 @@ Full developer documentation can be found [here](https://423s25.github.io/projec
 
 [Cody Hager, github: CodyHager](https://github.com/CodyHager)
 
-[Alan Zetzer](https://github.com/AJ-Zetzer)
+[Alan Zetzer, github: AJ-Zetzer](https://github.com/AJ-Zetzer)
 
 [Theodore Bagley](https://github.com/TheodoreBagley)
 
