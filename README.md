@@ -30,7 +30,7 @@ Full developer documentation can be found [here](https://423s25.github.io/projec
 
 [Matthew Parker, github: doddsip](https://github.com/doddsip)
 
-[Quinlin Gregg](https://github.com/TheQantas)
+[Quinlin Gregg, github: TheQantas](https://github.com/TheQantas)
 
 [Luke Breum](https://github.com/Lukebreum)
 
