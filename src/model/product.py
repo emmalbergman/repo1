@@ -39,7 +39,19 @@ class Product(Model):
             }
         )
         return product
-    
+
+    # Fills the database with how many days till each product is out of stock
+    @staticmethod
+    def fill_days_left() -> list['Product']:
+        products = Product.all()
+        for product in products:
+            days_left = product.get_days_until_out()
+            if days_left == None:
+                product.days_left = None
+            else:
+                product.days_left = days_left
+        
+
     # Returns the information of the chosen product based on its product name or id
     @staticmethod
     def get_product(name_or_id: str | int) -> Optional['Product']:
@@ -97,8 +109,6 @@ class Product(Model):
         self.last_updated = datetime.datetime.now()
         self.save()
         InventorySnapshot.create_snapshot(self.get_id(), self.inventory)
-
-
 
     # Increment price
     def increment_price(self, increase: float):
@@ -175,8 +185,10 @@ class InventorySnapshot(Model):
 
 
 
-# if __name__ == "__main__":
-#     add_product("Toilet Paper", 5, 20.00, "rolls", 100, "images/tp.jpg")
+if __name__ == "__main__":
+    db.connect()
+    db.create_tables([Product, InventorySnapshot])
+    Product.fill_days_left()
 #     update_stock("Toilet Paper", 5)
 #     # Uncomment to test delete_product
 #     """delete_product("Toilet Paper")"""

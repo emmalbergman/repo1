@@ -84,5 +84,5 @@ if __name__ == '__main__':
     #TODO: disable debug mode when we are done developing
     Product.add_product("shampoo", 5, 5.00,"bottles", 10, "")
     Product.add_product("stuff", 5, 5.00, "piles", 0, "")
-    #Product.delete_product("shampoo")
+    Product.fill_days_left()
     app.run(port=5000, debug=True)
