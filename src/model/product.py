@@ -16,17 +16,21 @@ class Product(Model):
     ideal_stock = IntegerField()
     image_path = CharField(null=True)
     last_updated = DateTimeField(default=datetime.datetime.now)
-    days_left = DecimalField(decimal_places=2, auto_round=True)
+    days_left = DecimalField(decimal_places=2, auto_round=True, null=True)
 
 
 
     @staticmethod
     def all() -> list['Product']:
-
         return list(Product.select())
 
     @staticmethod
-    def add_product(name: str, stock: int, price: float, unit_type: str, ideal_stock: int, days_left: float ,image_path: str = None) -> 'Product':
+    def urgency_rank() -> list['Product']:
+        UR = Product.select().order_by((fn.COALESCE(Product.days_left, 999999)))
+        return list(UR)
+
+    @staticmethod
+    def add_product(name: str, stock: int, price: float, unit_type: str, ideal_stock: int, days_left: None ,image_path: str = None) -> 'Product':
         product, created = Product.get_or_create(
             product_name=name,
             defaults={
@@ -47,10 +51,12 @@ class Product(Model):
         for product in products:
             days_left = product.get_days_until_out()
             if days_left == None:
-                product.days_left = None
+                pass
             else:
                 product.days_left = days_left
-        
+
+
+
 
     # Returns the information of the chosen product based on its product name or id
     @staticmethod
