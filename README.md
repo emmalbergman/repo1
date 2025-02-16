@@ -3,7 +3,7 @@ Group 1's project for ESOF 423- an inventory management system (IMS) for the HRD
 
 # User Documentation
 
-View our [project website](https://423s25.github.io/project1/) for full user documentation.
+View our [project website](https://423s25.github.io/repo1/) for full user documentation.
 # Developer Documentation
 
 ## Contribution
