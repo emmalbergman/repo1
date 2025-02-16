@@ -18,7 +18,7 @@ To contribute to the project:
 7. tag someone for a review (probably not necessary for smaller changes)
 8. once someone approves, merge it
 
-Full developer documentation can be found [here](https://423s25.github.io/repo/).
+Full developer documentation can be found [here](https://423s25.github.io/repo1/).
 
 # Maintainers
 
