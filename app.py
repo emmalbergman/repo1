@@ -55,6 +55,10 @@ def inventory_history():
     )
 
 
+@app.get("/add")
+def get_add():
+    return render_template("add_form.html")
+
 
 #Simple add, just adds stuff + 1 works with htmx
 #TODO: make this a form
@@ -62,10 +66,11 @@ def inventory_history():
 def add():
     products = Product.all()
     count = len(products)
-    stuff = "stuff" + str(count)
-    Product.add_product(stuff, 5, 5.00, "piles", 0, None)
+    Product.add_product(request.form.get("product_name"), int(request.form.get("inventory")), float(request.form.get("price")), request.form.get("unit_type"), int(request.form.get("ideal_stock")), None)
     Product.fill_days_left()
     return redirect("/")
+
+
 
 @app.route("/update/inventory/<int:product_id>", methods=["PATCH"])
 def update_inventory(product_id: int):
