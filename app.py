@@ -63,7 +63,7 @@ def add():
     products = Product.all()
     count = len(products)
     stuff = "stuff" + str(count)
-    Product.add_product(stuff, 5, 5.00, "piles", 0, 10)
+    Product.add_product(stuff, 5, 5.00, "piles", 0, None)
     Product.fill_days_left()
     return redirect("/")
 
@@ -84,8 +84,4 @@ def update_inventory(product_id: int):
 
 
 if __name__ == '__main__':
-    #TODO: disable debug mode when we are done developing
-    Product.add_product("shampoo", 5, 5.00,"bottles", 10, None)
-    Product.add_product("stuff", 5, 5.00, "piles", 0, None)
-    Product.fill_days_left()
     app.run(port=5000, debug=True)

@@ -191,10 +191,3 @@ class InventorySnapshot(Model):
 
 
 
-if __name__ == "__main__":
-    db.connect()
-    db.create_tables([Product, InventorySnapshot])
-    Product.fill_days_left()
-#     update_stock("Toilet Paper", 5)
-#     # Uncomment to test delete_product
-#     """delete_product("Toilet Paper")"""
