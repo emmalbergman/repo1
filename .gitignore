@@ -172,3 +172,4 @@ cython_debug/
 
 
 inventory.db
+users.db
