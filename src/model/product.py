@@ -16,6 +16,7 @@ class Product(Model):
     ideal_stock = IntegerField()
     image_path = CharField(null=True)
     last_updated = DateTimeField(default=datetime.datetime.now)
+    days_left = DecimalField(decimal_places=2, auto_round=True, null=True)
 
 
 
@@ -24,7 +25,12 @@ class Product(Model):
         return list(Product.select())
 
     @staticmethod
-    def add_product(name: str, stock: int, price: float, unit_type: str, ideal_stock: int, image_path: str = None) -> 'Product':
+    def urgency_rank() -> list['Product']:
+        UR = Product.select().order_by((fn.COALESCE(Product.days_left, 999999)))
+        return list(UR)
+
+    @staticmethod
+    def add_product(name: str, stock: int, price: float, unit_type: str, ideal_stock: int, days_left: None ,image_path: str = None) -> 'Product':
         product, created = Product.get_or_create(
             product_name=name,
             defaults={
@@ -32,11 +38,26 @@ class Product(Model):
                 'price': price,
                 'unit_type': unit_type,
                 'ideal_stock': ideal_stock,
-                'image_path': image_path
+                'image_path': image_path,
+                'days_left': days_left
             }
         )
         return product
-    
+
+    # Fills the database with how many days till each product is out of stock
+    @staticmethod
+    def fill_days_left() -> list['Product']:
+        products = Product.all()
+        for product in products:
+            days_left = product.get_days_until_out()
+            if days_left == None:
+                pass
+            else:
+                product.days_left = days_left
+
+
+
+
     # Returns the information of the chosen product based on its product name or id
     @staticmethod
     def get_product(name_or_id: str | int) -> Optional['Product']:
@@ -94,8 +115,6 @@ class Product(Model):
         self.last_updated = datetime.datetime.now()
         self.save()
         InventorySnapshot.create_snapshot(self.get_id(), self.inventory)
-
-
 
     # Increment price
     def increment_price(self, increase: float):
@@ -172,8 +191,3 @@ class InventorySnapshot(Model):
 
 
 
-# if __name__ == "__main__":
-#     add_product("Toilet Paper", 5, 20.00, "rolls", 100, "images/tp.jpg")
-#     update_stock("Toilet Paper", 5)
-#     # Uncomment to test delete_product
-#     """delete_product("Toilet Paper")"""

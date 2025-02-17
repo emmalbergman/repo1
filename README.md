@@ -26,7 +26,7 @@ Full developer documentation can be found [here](https://423s25.github.io/repo1/
 
 [Alan Zetzer, github: AJ-Zetzer](https://github.com/AJ-Zetzer)
 
-[Theodore Bagley](https://github.com/TheodoreBagley)
+[Theodore Bagley] - MyGithub - (https://github.com/TheodoreBagley)
 
 [Matthew Parker, github: doddsip](https://github.com/doddsip)
 
