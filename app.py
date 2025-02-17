@@ -67,6 +67,13 @@ def add():
     Product.fill_days_left()
     return redirect("/")
 
+
+@app.post("/delete/<int:product_id>")
+def delete(product_id: int):
+    Product.delete(product_id)
+    return  redirect("/")
+
+
 @app.route("/update/inventory/<int:product_id>", methods=["PATCH"])
 def update_inventory(product_id: int):
     new_stock = request.form.get('stock', None, type=int)
