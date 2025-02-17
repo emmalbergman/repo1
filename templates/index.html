@@ -49,6 +49,7 @@
             <th>Unit Type</th>
             <th>Ideal Stock</th>
             <th>Last Updated</th>
+            <th>Days Left</th>
             <th>Item History</th>
         </tr>
         {% for product in product_list %}
@@ -59,6 +60,15 @@
             <td>{{ product.unit_type }}</td>
             <td>{{ product.ideal_stock }}</td>
             <td>{{ product.last_updated }}</td>
+            {% if product.days_left == None %}
+            <td>Added Recently</td>
+            {% elif product.days_left <= 7 %}
+            <td><u class="urgent_underline">{{ product.days_left }}</u></td>
+            {% elif product.days_left > 7 and product.days_left <= 14 %}
+            <td><u class="less_urgent_underline">{{ product.days_left }}</u></td>
+            {% elif product.days_left >= 15 %}
+            <td><u class="not_urgent_underline">{{ product.days_left }}</u></td>
+            {% endif %}
             <td><a href="/inventory-history?product-id={{ product.get_id() }}">View</a></td>
         </tr>
         {% endfor %}
