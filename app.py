@@ -1,13 +1,13 @@
 import os, secrets
-from flask import Flask, request, Response, render_template, redirect, abort
+from flask import Flask, request, Response, render_template, redirect, abort, flash
 from src.model.product import Product, InventorySnapshot, db
 from src.model.user import User, Role, UserRoles, user_db
-from flask_security import Security, PeeweeUserDatastore, auth_required, hash_password
+from flask_security import Security, PeeweeUserDatastore, auth_required, hash_password, current_user, \
+    permissions_required, RegisterForm
 
 app = Flask(__name__, static_url_path='', static_folder='static')
 
 app.config['SECRET_KEY'] = secrets.token_urlsafe()
-
 #TODO: This should NOT be hardcoded in production
 app.config['SECURITY_PASSWORD_SALT'] = os.environ.get("SECURITY_PASSWORD_SALT", '146585145368132386173505678016728509634')
 
@@ -36,7 +36,15 @@ def _db_close(exc):
         db.close()
 
 
-
+@app.route("/users", methods=['GET', 'POST'])
+@auth_required()
+@permissions_required('add_user')
+def users():
+    form = RegisterForm(request.form)
+    if request.method == 'POST' and form.validate_on_submit():
+        security.datastore.create_user(email=form.email.data, password=hash_password(form.password.data))
+        flash("User registered successfully")
+    return render_template("security/register_user.html", register_user_form=form)
 
 @app.get("/")
 @auth_required()
@@ -45,7 +53,8 @@ def home():
     Product.fill_days_left()
     # Loads products in urgency order
     products = Product.urgency_rank()
-    return render_template("index.html", product_list=products)
+    return render_template("index.html", product_list=products, user=current_user, 
+                           registration_access=current_user.has_permission('add_user'))
 
 @app.get("/inventory-history")
 def inventory_history():
@@ -99,8 +108,14 @@ def update_inventory(product_id: int):
 
 
 with app.app_context():
-    if not security.datastore.find_user(email="admin@thehrdc.org"):
-        security.datastore.create_user(email="admin@thehrdc.org", password=hash_password("password"))
+    sd = security.datastore
+    if not sd.find_user(email="admin@thehrdc.org"):
+        sd.create_user(email="admin@thehrdc.org", password=hash_password("password"))
+    if not sd.find_role('admin'):
+        sd.create_role(name='admin', description='Highest level of access. Only admins can create other users.', 
+                       permissions={'read', 'write', 'add_user'})
+    if not sd.find_user(email='admin@thehrdc.org').has_role('admin'):
+        sd.add_role_to_user(sd.find_user(email='admin@thehrdc.org'), sd.find_role('admin'))
 
 if __name__ == '__main__':
     app.run(port=5000, debug=True)

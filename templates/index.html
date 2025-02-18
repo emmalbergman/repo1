@@ -15,7 +15,13 @@
 
 <body>
     <h1>Inventory Management System</h1>
-
+    <div style="display: flex; align-items: center; float: right; gap: 10px; margin: 10px;">
+        {% if registration_access %}
+        <h3><a href="/users">Add Users</a></h3>
+        {% endif %}
+        <h3><a href="/logout">Log Out</a></h3>
+    </div>
+    <h2>Hello, {{ user.email }}!</h2>
     <!--
         endpoint: the endpoing to hit to update (e.g., /update/<endpoint>/<id>)
         id: the product id (e.g., /update/<endpoint>/<id>)
@@ -30,7 +36,7 @@
             <img src="icons/pencil.svg" alt="Edit Icon" />
         </button>
         <form class="edit" style="display: none;" hx-patch="update/{{ endpoint }}/{{ id }}" hx-target="body">
-            <input onkeypress="onInputEnter(this, event)" name="{{ param }}" value="{{ value }}"/>
+            <input onkeypress="onInputEnter(this, event)" name="{{ param }}" value="{{ value }}" />
             <button onclick="event.preventDefault(); toStaticCell(this);" class="in-cell-action" title="Cancel Changes">
                 <img src="icons/close.svg" alt="Close Icon" />
             </button>
@@ -62,14 +68,13 @@
             <td>{{ product.last_updated }}</td>
             {% if product.days_left == None %}
             <td>Added Recently</td>
-            {% elif product.days_left <= 7 %}
-            <td><u class="urgent_underline">{{ product.days_left }}</u></td>
-            {% elif product.days_left > 7 and product.days_left <= 14 %}
-            <td><u class="less_urgent_underline">{{ product.days_left }}</u></td>
-            {% elif product.days_left >= 15 %}
-            <td><u class="not_urgent_underline">{{ product.days_left }}</u></td>
-            {% endif %}
-            <td><a href="/inventory-history?product-id={{ product.get_id() }}">View</a></td>
+            {% elif product.days_left <= 7 %} <td><u class="urgent_underline">{{ product.days_left }}</u></td>
+                {% elif product.days_left > 7 and product.days_left <= 14 %} <td><u class="less_urgent_underline">{{
+                        product.days_left }}</u></td>
+                    {% elif product.days_left >= 15 %}
+                    <td><u class="not_urgent_underline">{{ product.days_left }}</u></td>
+                    {% endif %}
+                    <td><a href="/inventory-history?product-id={{ product.get_id() }}">View</a></td>
         </tr>
         {% endfor %}
     </table>

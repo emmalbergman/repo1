@@ -1,12 +1,20 @@
 from peewee import *
 from flask_security import UserMixin, RoleMixin
+import ast
 
 user_db = SqliteDatabase('users.db')
 
 class Role(RoleMixin, user_db.Model):
     name = CharField(unique=True)
     description = TextField(null=True)
-    permissions = TextField(null=True)
+    permissions = TextField(default="[]")
+
+    #NOTE: the default method flask-security uses is broken
+    #so this shim is here instead
+    def get_permissions(self): 
+        return ast.literal_eval(self.permissions)
+
+
 
 # N.B. order is important since db.Model also contains a get_id() -
 # we need the one from UserMixin.
